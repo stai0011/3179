@@ -1,4 +1,4 @@
-Country,Year,Life expectancy,GDP per capita,Population (historical estimates),Continent
+Country,Year,Life_expectancy,GDP_per_capita,Population_(historical_estimates),Continent
 Afghanistan,1950,27.638,1156,7752117,Asia
 Afghanistan,1951,27.878,1170,7840151,Asia
 Afghanistan,1952,28.361,1189,7935996,Asia
