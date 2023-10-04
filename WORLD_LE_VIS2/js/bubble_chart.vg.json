@@ -80,7 +80,7 @@
 
       "x": {
         "field": "GDP_per_capita",
-        "title": "GDP per capita",
+        "title": "GDP per capita (logged value)",
         "type": "quantitative",
         "axis": { "tickCount": 10},
         "scale": {"type" : "log", "domain":[100, 115000]}
@@ -150,8 +150,8 @@
           
           "tooltip": [
             {"field": "Country", "type": "nominal"},
-            {"field": "Life_expectancy","title": "Life expectancy", "type": "quantitative", "format": ","},
-            {"field": "GDP_per_capita","title": "GDP per capita", "type": "quantitative", "format": ","},
+            {"field": "Life_expectancy","title": "Life expectancy (years)", "type": "quantitative", "format": ","},
+            {"field": "GDP_per_capita","title": "GDP per capita (logged value in USD)", "type": "quantitative", "format": ","},
             {"field": "Population_mln" , "title": "Population (million)", "type": "quantitative"}
              ]
         }
