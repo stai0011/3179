@@ -1,0 +1,48 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Average Life Expectancy by Region Over the Years",
+    "width": 400,
+    "height": 400,
+    "data": {"url": "https://raw.githubusercontent.com/stai0011/3179/main/Life-Expectancy-Data-Updated.csv"},
+    "mark": {
+      "type": "line",
+      "point": true
+    },
+    "encoding": {
+      "x": {
+        "timeUnit": "year",
+        "title": "Year",
+        "field": "Year",
+        "scale": {"domain": [2000, 2015]}  },
+      "y": {
+        "aggregate": "mean", 
+        "field": "Life_expectancy", 
+        "type": "quantitative",
+        "title": "Average life expectancy"},
+      "color": {"field": "Region", "type": "nominal", "scale": {
+          "domain": [
+            "Africa",
+            "Asia",
+            "Central America and Caribbean",
+            "European Union",
+            "Middle East",
+            "North America",
+            "Oceania",
+            "Rest of Europe",
+            "South America"
+          ],
+          "range": [
+            "#1f77b4",
+            "#ff7f0e",
+            "#2ca02c",
+            "#17becf",
+            "#9467bd",
+            "#f7d42a",
+            "#ffbb78",
+            "#e377c2",
+            "#8c564b"
+          ]
+        }}
+    }
+  }
+  
