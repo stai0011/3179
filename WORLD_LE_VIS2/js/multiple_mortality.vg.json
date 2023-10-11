@@ -1,0 +1,35 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/stai0011/3179/main/Life-Expectancy-Data-Updated.csv"
+    },
+    
+    "title":"Average mortality statistic by region",
+    "facet": {
+      "column": {
+        "field": "Region", 
+        "type": "nominal", 
+    "header": {"title": null}}
+      }
+    ,
+    "spec": {
+         
+      "mark": {"type": "line"},
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal", "axis": {"title": "Year"}},
+        "y": {"field": "value", "type": "quantitative", "axis": {"title": "Value"}},
+        "color": {"field": "Statistic", "type": "nominal", "scale": {"range": ["red", "blue", "yellow"]}},
+        "tooltip": [
+          {"field": "Statistic", "type": "nominal", "title": "Statistic"},
+          {"field": "value", "type": "quantitative", "title": "Value", "format": ".2f"}
+        ]
+      },
+      "transform": [
+        {"fold": ["Infant_deaths", "Under_five_deaths", "Adult_mortality"], "as": ["Statistic", "value"]},
+        {"filter": {"field": "Statistic", "oneOf": ["Infant_deaths", "Under_five_deaths", "Adult_mortality"]}},
+        {"aggregate": [{"op": "mean", "field": "value", "as": "value"}],
+         "groupby": ["Region", "Year", "Statistic"]}
+      ],
+      "width": 55
+    }}
+  

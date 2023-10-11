@@ -32,18 +32,32 @@
     <div class="pure-g">
       <div class="pure-u-1-1">
         <h1>World Life Expectancy (2000-2015)</h1>
-        <p>This page contains my work for FIT3179 Week 10 homework. </p>
+        <p> The primary focus of this visualisation will be on life expectancy as a central measure of overall wellbeing around the world, and how it is influenced by other health and socio-economic indicators, ranging from infant mortality rates and adult mortality to economic factors like GDP per capita. </p>
+    </p>
       </div>
     </div>
     <!-- end pure grid group -->
+    
+    <!-- pure grid group -->
+    <div class="pure-g">
+        <div class="pure-u-1-1">
+            <div class="description description-left">
+                <h2>3 mortality indicators by region</h2>
+                <p> Global mortality trends have shown a significant decline, reflecting advancements in healthcare, improved living conditions, and public health initiatives. Despite these positive changes, the African region consistently exhibits the highest mortality rates acrossadult mortality, infant deaths and under fie deaths.  </p>
+              </div>
+            </div>
+        <div class="pure-u-1-1">
+              <div id="multiple_mortality" class="vis-container"></div>
+        </div>
+      </div>
+      <!-- end pure grid group -->
 
     <!-- pure grid group -->
     <div class="pure-g">
       <div class="pure-u-1-4">
         <div class="description description-left">
           <h2>Bubble plot</h2>
-          <p>The scatterplot shows Life expectancy vs GDP per capita over the years.
-            It is interactive and includes tooltips, text annotations and filtering with slider (for year) and drop down menu (region selection). </p>
+          <p>In general, higher GDP per capita tends to be associated with longer life expectancies, indicating a positive correlation between wealth and wellbeing. However, there are exceptions, as the impact of GDP on life expectancy can be affected by other factors, including healthcare, infrastructure, education, and lifestyle choices.  </p>
         </div>
       </div>
       <div class="pure-u-3-4">
@@ -80,7 +94,8 @@
   <script type="text/javascript">
     var spec1 = "js/choropleth_map.vg.json";
     var spec2 = "js/bubble_chart.vg.json";
-    var spec3 = "js/le_byregion.vg.json"
+    var spec3 = "js/le_byregion.vg.json";
+    var spec4 = "js/multiple_mortality.vg.json"
 
 
     vegaEmbed('#choropleth_map', spec1, { "actions": false }).then(function (result) {
@@ -92,6 +107,10 @@
     }).catch(console.error);
 
     vegaEmbed('#le_byregion', spec3, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#multiple_mortality', spec4, { "actions": false }).then(function (result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
   </script>

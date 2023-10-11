@@ -1,7 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "height": 300,
-    "width": 500,
+    "width": "container",
     "title": "Life expectany vs GDP per capita per country",
     "data": {
       "url": "https://raw.githubusercontent.com/stai0011/3179/main/Life-Expectancy-Data-Updated.csv"
