@@ -1,0 +1,108 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/stai0011/3179/main/Life-Expectancy-Data-Updated.csv"
+    },
+    "title":"Immunisation coverage against infectious diseases",
+    "width": 237,
+    "spacing":{"column":5},
+    "selection": {
+      "region_highlight": {
+        "type": "multi",
+        "fields": ["Region"],
+        "bind": "legend",
+        "init": { "Region": "European Union" }
+      }
+    },
+    "mark": {
+      "strokeWidth": 4,
+      "type": "line",
+      "point": true
+    },
+    "encoding": {
+      "facet": {
+        "field": "Disease",
+        "columns": 3,
+        "header": { "title": null, 
+        "labelFontWeight": "bold" }
+      },
+      "x": {
+        "timeUnit": "year",
+        "title": "Year",
+        "field": "Year",
+        "scale": { "domain": [2000, 2015] }, 
+        "axis":{"format":"%Y"}
+      },
+      "y": {
+        "aggregate": "mean",
+        "field": "Percentage of coverage",
+        "type": "quantitative",
+        "title": "Percentage of coverage",
+        "scale": { "domain": [50, 100] }
+      },
+      "color": {
+        "field": "Region",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "Africa",
+            "Asia",
+            "Central America and Caribbean",
+            "European Union",
+            "Middle East",
+            "North America",
+            "Oceania",
+            "Rest of Europe",
+            "South America"
+          ],
+          "range": [
+            "#1f77b4",
+            "#FE6100",
+            "#37E435",
+            "#17becf",
+            "#785EF0",
+            "#f7d42a",
+            "#004D40",
+            "#e377c2",
+            "#8c564b"
+          ]
+        }
+      },
+      "opacity": {
+        "condition": { "selection": "region_highlight", "value": 0.9 },
+        "value": 0.2
+      },
+      "tooltip": [
+        { "field": "Year", "type": "temporal", "title": "Year", "format":"%Y" },
+       
+        { "field": "Region", "type": "nominal", "title": "Region" },
+        { "field": "Percentage of coverage", "type": "quantitative", "title": "Average percentage coverage", "format": ".2f"  }
+      ]
+    },
+    "transform": [
+      {
+        "fold": ["Measles", "Polio", "Diphtheria"],
+        "as": ["Disease", "Percentage of coverage"]
+      },
+      {
+        "filter": {
+          "field": "Disease",
+          "oneOf": ["Measles", "Polio", "Diphtheria"]
+        }
+      },
+      {
+        "aggregate": [
+          { "op": "mean", "field": "Percentage of coverage", "as": "Percentage of coverage" }
+        ],
+        "groupby": ["Disease", "Region", "Year"]
+      }
+    ],
+    "config": {"title":{"fontSize": 15},
+      "legend": {
+        "orient": "top", 
+        "columns": 3 }
+    }
+  }
+  
+
+  

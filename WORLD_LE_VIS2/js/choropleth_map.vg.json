@@ -1,0 +1,124 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "World Life Expectancy Over the Years",
+  "width": "container",
+  "height": 300,
+  "params": [
+    {
+      "name": "Year_select",
+      "value": 2000,
+      "bind": {
+        "input": "range",
+        "min": 2000,
+        "max": 2015,
+        "step": 1,
+        "name": "Year: "  
+        }
+    }, 
+
+    {
+      "name": "zoom_level",
+      "value": 100,
+      "bind": {
+      "input": "range",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "name": "Zoom: "
+      }
+      },
+      {
+      "name": "center_to",
+      "value": [0, 0],
+      "bind": {
+      "input": "select",
+      "options": [
+     [0, 0],         
+        [25, -2.5],     
+        [100, 20],      
+        [10, 50],      
+        [150, -25],     
+        [-65, -15],     
+        [-100, 40]
+      ],
+      "labels": ["Centre", "Africa", "Asia", "Europe", "Oceania", "South America", "North America"],
+      "name": "Map Centre: "
+      }}
+
+  ],
+  "data": {
+    "url": "https://raw.githubusercontent.com/stai0011/3179/main/Life-Expectancy-Data-Updated.csv"
+  },
+  "projection": {"type": "equalEarth", 
+  "center": {"expr": "center_to"},
+  "scale": {"expr": "zoom_level"}
+},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/ne_110m_admin_0_countries.topojson",
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
+      },
+      "transform": [
+      {
+        "calculate": "'Data is not available in ' + datum.properties.NAME_LONG",
+        "as": "note"
+      }
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {"tooltip": {"field": "note"}}
+    },
+    {
+      "data": {
+      "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
+      "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "data": {
+      "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
+      "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    },
+    {
+      "transform": [
+      {        
+        "lookup": "Country",
+        "from": {
+        "data": {            
+          "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+          "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+        },
+        "key": "properties.NAME_LONG"
+        },
+        "as" : "geo"
+      },
+
+      {"filter": "datum.Year == Year_select"}      
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+      "shape": {"field": "geo", "type": "geojson"},
+      "color": {
+        "field": "Life_expectancy",
+        "title": "Life expectancy",
+        "type": "quantitative"
+      },
+      "tooltip": [
+        {"field": "Country", "type": "nominal", "title": "Country"},
+        {"field": "Life_expectancy", "type": "quantitative","title": "Life expectancy (years)"}
+      ]
+    }
+  }
+  ],
+  
+  "config": {
+    "title": {"fontSize": 15},
+    "legend": {"orient": "top"}
+  }
+}
